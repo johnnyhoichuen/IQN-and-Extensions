@@ -56,7 +56,18 @@ class IQN(nn.Module):
         self.N = N  
         self.n_cos = 64
         self.layer_size = layer_size
-        self.pis = torch.FloatTensor([np.pi*i for i in range(1,self.n_cos+1)]).view(1,1,self.n_cos).to(device) # Starting from 0 as in the paper 
+
+        array = [np.pi*i for i in range(1,self.n_cos+1)]
+        reshaped_array = torch.FloatTensor(array).view(1, 1, self.n_cos)
+        # print(f'array: {array}')
+        # print(f'array.view`: {torch.FloatTensor(array).view(1, 1, self.n_cos)}')
+
+        try:
+            self.pis = reshaped_array.to(device) # Starting from 0 as in the paper
+            print(f'device for pis: {device}')
+        except:
+            exit()
+
         self.dueling = dueling
         self.device = device
         if noisy:

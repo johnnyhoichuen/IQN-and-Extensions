@@ -100,7 +100,8 @@ if __name__ == "__main__":
                                                      "noisy_dueling+per"
                                                      ], default="iqn", help="Specify which type of IQN agent you want to train, default is IQN - baseline!")
     
-    parser.add_argument("-env", type=str, default="BreakoutNoFrameskip-v4", help="Name of the Environment, default = BreakoutNoFrameskip-v4")
+    # parser.add_argument("-env", type=str, default="BreakoutNoFrameskip-v4", help="Name of the Environment, default = BreakoutNoFrameskip-v4")
+    parser.add_argument("-env", type=str, default="CartPole-v0", help="Name of the Environment, default = BreakoutNoFrameskip-v4")
     parser.add_argument("-frames", type=int, default=10000000, help="Number of frames to train, default = 10 mio")
     parser.add_argument("-eval_every", type=int, default=250000, help="Evaluate every x frames, default = 250000")
     parser.add_argument("-eval_runs", type=int, default=2, help="Number of evaluation runs, default = 2")
@@ -121,7 +122,7 @@ if __name__ == "__main__":
     parser.add_argument("-w", "--worker", type=int, default=1, help="Number of parallel Environments. Batch size increases proportional to number of worker. not recommended to have more than 4 worker, default = 1")
 
     args = parser.parse_args()
-    writer = SummaryWriter("runs/"+args.info)       
+    writer = SummaryWriter(f"runs/{args.info}")
     seed = args.seed
     BUFFER_SIZE = args.memory_size
     BATCH_SIZE = args.batch_size
@@ -130,7 +131,8 @@ if __name__ == "__main__":
     LR = args.lr
     n_step = args.n_step
     env_name = args.env
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = "cpu"
     print("Using ", device)
 
     np.random.seed(seed)
